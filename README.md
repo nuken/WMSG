@@ -40,7 +40,7 @@ This script is intentionally generalized, using "Source" and "Destination" termi
 
 ### 1. Save the Script
 
-Copy the entire PowerShell script content (from the previous response) and save it to a file named `media_symlinks_generator.ps1` (or any `.ps1` name you prefer) on your Windows machine (e.g., in `C:\Scripts\`).
+Copy the entire PowerShell script content (from the repository) and save it to a file named `media_symlinks_generator.ps1` (or any `.ps1` name you prefer) on your Windows machine (e.g., in `C:\Scripts\`).
 
 ### 2. Run as Administrator
 
