@@ -67,13 +67,14 @@ function Create-Symlinks {
         }
         Write-Host "  -> Looking for files with extensions: $($fileExtensions -join ', ')"
 
-        Write-Host "  -> Scanning for files in '$SourceRootPath'..."
-        $sourceItems = Get-ChildItem -Path $SourceRootPath -File -Include $fileExtensions -ErrorAction SilentlyContinue # Ignore errors if path is invalid
+        Write-Host "  -> Scanning for files in '$SourceRootPath' (including subfolders)..."
+        # Using Where-Object for robust filtering after getting all files recursively
+        $sourceItems = Get-ChildItem -Path $SourceRootPath -File -Recurse -ErrorAction SilentlyContinue | Where-Object { $fileExtensions -contains $_.Extension }
 
         if ($null -eq $sourceItems -or $sourceItems.Count -eq 0) {
-            Write-Warning "  -> No files with specified extensions found in '$SourceRootPath'. No file symlinks will be created."
+            Write-Warning "  -> No files with specified extensions found in '$SourceRootPath' or its subfolders. No file symlinks will be created."
         } else {
-            Write-Host "  -> Found $($sourceItems.Count) files in '$SourceRootPath'."
+            Write-Host "  -> Found $($sourceItems.Count) files in '$SourceRootPath' and its subfolders."
         }
 
         $sourceItems | ForEach-Object {
